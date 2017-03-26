@@ -1,0 +1,36 @@
+lexicons:
+- codelingo/go
+tenets:
+- name: Altering Constants
+  doc: Finds constant structs in assignment statements.
+  comment: This constant struct should not be altered.
+  match: |
+    <go.assign_stmt:
+      go.lhs:
+        go.ident:
+          name: /(?:(?:I|i)mmutable|Cnst)/
+- name: Client Unmarshalling
+  doc: Finds data being unmarshalled into client format on the server side.
+  # First draft - not production ready:
+  # Just a template - won't be immediately applicable to any codebase.
+  # Needs correct property resolution, since we're missing types on every struct.
+  # It would be nice to be able to search all server methods https://github.com/codelingo/platform/issues/205
+  comment: You should unmarshal to a serverStruct, not a clientStruct
+  match: |
+    go.func_decl:
+      # In real cases this should be used to define the servers's scope with go.file etc.
+      name: "MakeJSONRequest"
+      <go.assign_stmt:
+        go.call_expr:
+          go.selector_expr:
+            expr: "json"
+            name: "Marshal"
+          go.args:
+            go.ident:
+              # When types work this should be:
+              # type: "clientStruct"
+              name: "cliStr"
+
+
+
+
