@@ -1,0 +1,2 @@
+# tenets
+CodeLingo Tenet
