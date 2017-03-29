@@ -1,0 +1,15 @@
+lexicons:
+- codelingo/go
+
+tenets:
+- name: server-unmarshalling
+  comment: Please unmarshal to a serverStruct
+  match:
+    <go.assign_stmt:
+      go.call_expr:
+        go.selector_expr:
+          expr: "json"
+          name: "Marshal"
+        go.args:
+          !go.ident:
+            type: "serverStruct"
