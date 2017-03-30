@@ -3,7 +3,7 @@ lexicons:
 
 tenets:
 - name: server-unmarshalling
-  comment: Please unmarshal to a serverStruct
+  comment: Please unmarshal to a serverStruct asdf
   match:
     <go.assign_stmt:
       go.call_expr:
@@ -12,4 +12,4 @@ tenets:
           name: "Marshal"
         go.args:
           !go.ident:
-            type: "serverStruct"
+            name: "serverStruct"

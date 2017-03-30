@@ -19,4 +19,5 @@ func immutableMain() {
 	mazdaCnst = myStruct{34}
 	immutableToyota = myStruct{34}
 	anImmutableAudi = myStruct{34}
+	mazdaCnst.car = 12
 }

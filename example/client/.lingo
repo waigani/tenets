@@ -4,14 +4,6 @@ lexicons:
 tenets:
 - name: Client Unmarshalling
   doc: There should be no need to use the client struct to unmarshall on the server.
-  comment: Please unmarshal to a clientStruct, not a {{.actualStrUsed}}
+  comment: Please unmarshal to a clientStruct
   match:
-    <go.assign_stmt:
-      go.call_expr:
-        go.selector_expr:
-          expr: "json"
-          name: "Marshal"
-        go.args:
-          !go.ident:
-            type: "clientStruct"
-            type: actualStrUsed
+    <func
