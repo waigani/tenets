@@ -45,7 +45,9 @@ go.func_decl:
                 name: $wgName
 ```
 
-# Sprinf an Error
+And we should be able to generate this whole query by selecting the anti-pattern code above.
+
+# Sprintf an Error
 
 ### Problem
 
@@ -68,7 +70,7 @@ but it would be tidier to use `errors.Errorf()`.
         <rhs>: "Sprintf"
 ```
 
-This is a good example of a tenet that could live inside the Errors package and apply to projects that used Errors.
+This is a good example of a tenet that could live inside the Errors package and apply to projects that used Errors. 
 
 # Deferring a Function
 
@@ -98,4 +100,4 @@ go.<deferal>:
         <go.call_expr
 ```
 
-Then it would be a matter of figuring out how to ensure that the call expression is the only child of the function declaration.
+Then it would be a matter of figuring out how to ensure that the call expression is the only child of the function declaration. Perhaps the not operator can be used to find all node types excluding funcs.
