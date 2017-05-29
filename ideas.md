@@ -101,3 +101,45 @@ go.<deferal>:
 ```
 
 Then it would be a matter of figuring out how to ensure that the call expression is the only child of the function declaration. Perhaps the not operator can be used to find all node types excluding funcs.
+
+# Utilizing if-semicolon syntax
+
+### Problem
+
+Code generally becomes more readable when concerns are collected together into their own blocks and lines. For example, lines like:
+
+```
+err := os.Chdir(dir)
+if err != nil {
+	return "", errors.Trace(err)
+}
+```
+
+Can be shortened to:
+
+```
+if err := os.Chdir(dir); err != nil {
+    return "", errors.Trace(err)
+}
+```
+
+### CLQL Idea
+
+We can capture the specific case with something like:
+
+```
+go.call_expr:
+    <return_val>: 
+        type: "error"
+    go.assign_stmt:
+        name: $err
+go.if_stmt:
+    <lhs>:
+        name: $err
+    <rhs>:
+        <literal>: "nil"
+```
+
+More generally we may want to capture all the cases where; we assign variables that are going to be used in an immediately proceeding if statement, but aren't going to be used anywhere else in the scope. Any variable like that can be declared in the init statement of the if statement because it doesn't need to be accessed anywere else.
+
+We would also want to capture the cases where variables are assigned but not declared in the call expression; the assignment can be put into the if's init statement because it refers to the variable in the parent scope, so it will update it as before.
