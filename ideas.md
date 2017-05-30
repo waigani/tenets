@@ -143,3 +143,21 @@ go.if_stmt:
 More generally we may want to capture all the cases where; we assign variables that are going to be used in an immediately proceeding if statement, but aren't going to be used anywhere else in the scope. Any variable like that can be declared in the init statement of the if statement because it doesn't need to be accessed anywere else.
 
 We would also want to capture the cases where variables are assigned but not declared in the call expression; the assignment can be put into the if's init statement because it refers to the variable in the parent scope, so it will update it as before.
+
+# Spelling and Grammar
+
+### Problem
+
+We need to be able to check spelling and grammar errors in comments in code. 
+
+### CLQL Idea
+
+One solution would be to create a lexicon that does NLP, and turns a string of English into a parse tree based on English grammar. The parse tree could add edges describing the elements of the string incorrect (for a simple black and white parser).
+
+```
+go.func_decl:
+    <header comment>:
+        <nlp.grammar_error
+```
+
+The above query would induce the ingest engine to parse all go header comments, and ingest them into the store. When parts of the comments can't be parsed, the NLP lexicon would add a grammar_error edge with a description of what the problem is. 
