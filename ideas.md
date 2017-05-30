@@ -161,3 +161,37 @@ go.func_decl:
 ```
 
 The above query would induce the ingest engine to parse all go header comments, and ingest them into the store. When parts of the comments can't be parsed, the NLP lexicon would add a grammar_error edge with a description of what the problem is. 
+
+# Single Cased Select Statement
+
+### Problem
+
+A select statement with a single statement is pointless, and probably indicates that the author intended to add another case. 
+
+```
+select {
+case stuff, ok := <-stuffc:
+    dostuff()
+}
+```
+
+### CLQL Idea
+
+We need to identify a select statement with only one case, so ideally we would be able to count the number of cases:
+
+```
+go.select_stmt:
+    count:
+        amount: 1
+        go.case_stmt:
+```
+
+or, if we could access a guaranteed unique identifier on the case node:
+
+```
+go.select_stmt:
+    go.case_stmt:
+        uuid: $var
+    go.case_stmt:
+        !uuid: $var
+```
