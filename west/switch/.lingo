@@ -1,0 +1,13 @@
+lexicons:
+- codelingo/cpp
+tenets:
+- name: fall-through-case
+  doc: Finds non-empty cases that fall through.
+  comment: Non-empty cases must end with a break, return, or goto.
+  match: 
+    cpp.switch_statement[:]:
+      <cpp.case_statement:
+        cpp.element
+        !cpp.return_statement
+        !cpp.goto_statement
+        !cpp.break_statement

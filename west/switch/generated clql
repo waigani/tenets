@@ -1,0 +1,23 @@
+cpp.file:
+  cpp.function_declaration:
+    cpp.body:
+      cpp.switch_statement:
+        cpp.case_statement:
+          cpp.body:
+            cpp.return_statement
+
+cpp.file:
+  cpp.function_declaration:
+    cpp.body:
+      cpp.switch_statement:
+        cpp.case_statement:
+          cpp.body:
+            cpp.break_statement
+
+cpp.file:
+  cpp.function_declaration:
+    cpp.body:
+      cpp.switch_statement:
+        cpp.case_statement:
+          cpp.body:
+            cpp.goto_statement
