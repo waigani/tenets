@@ -10,7 +10,7 @@ cpp.file:
       cpp.if_statement:
         cpp.body:
           cpp.for_loop:
-            <cpp.assignment_statement:
+            cpp.assignment_statement:
               cpp.lhs:
                 cpp.identifier_name:
                   identifier_token: "incident"
