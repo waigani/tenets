@@ -1,38 +1,59 @@
-PCSSCall CCSSInterfaceImp::makeCallInternal(CLine *line, CLineGroup *lineGroup, CAgency *agency, PIncident incident, UseIncidentFor incidentUse)
-{
-    if( cssCall != NULL )
-    {
-      {
-        // try to match inIncident to a centrally created site call
-        CThreadCSLock _lock(mMutex); // insure proper order of mutexes
-        CThreadCSLock _lock1(MUTEX(cssCall));
-        if( matchableByCentralUCId(cssCall) )
-        {
-          for( SiteCallMap::reverse_iterator incidentIt = mSiteCalls.rbegin() ; incidentIt != mSiteCalls.rend() ; ++incidentIt )
-          {
-            incident = incidentIt->second ;
-            if( matchCallToSiteIncident(cssCall, incident, false, false, true) )
-            {
-              break;
-            }
-          }
-        }
-      }
+#include <iostream>
+#include <vector>
 
-      if( incident != NULL )
-      {
-        if( incidentUse != UseIncidentToHostNewCall )
-        {
-          if( incidentUse == UseIncidentForCopyingAddress )
-          {
-            CAli *address = CreateAli()->init();
-            if( incident->addressSpecified(AddressType_Ili) ) // if ILI is specified independently, use it directly
-            {
-              incident->address(address, AddressType_Ili) ;
-              INCIDENT(cssCall)->setAddress(ModuleName, mCurrentAgent, address, AddressType_Ili, AddressOrigin_CopyForOutgoing);
-            }
-          }
-          }
-          }
+class Object {
+public:
+    Object* inner;
+};
+
+class Something {
+};
+
+int Update(Object* object, std::vector<Something*> somethings);
+
+int main() {
+    Object* obj1 = new Object();
+    Object* obj2 = new Object();
+    obj1->inner = obj2;
+
+    Something* some1 = new Something();
+    Something* some2 = new Something();
+    Something* some3 = new Something();
+    Something* some4 = new Something();
+
+    std::vector<Something*> someVec{
+            some1,
+            some2,
+            some3,
+            some4
+    };
+
+    int objHash = Update(obj1, someVec);
+    if (objHash < 10) {
+        return 1;
+    } else {
+        return 0;
     }
+
 }
+
+
+bool Combine(Object* object, Something* something) {
+    return true;
+}
+
+int Hash(Object* object) {
+    return 12;
+}
+
+int Update(Object* object, std::vector<Something*> somethings) {
+
+    for (int i = 0; i < somethings.size(); i++) {
+        object = object->inner;
+        if (Combine(object, somethings[i])) {
+            break;
+        }
+    }
+
+    return Hash(object);
+};
