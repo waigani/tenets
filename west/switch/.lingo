@@ -4,10 +4,15 @@ tenets:
 - name: fall-through-case
   doc: Finds non-empty cases that fall through.
   comment: Non-empty cases must end with a break, return, or goto.
-  match: 
-    cpp.switch_statement[:]:
-      <cpp.case_statement:
+  match:
+    cpp.switch_stmt[:]:
+      <cpp.case_stmt[0:2]:
         cpp.element
-        !cpp.return_statement
-        !cpp.goto_statement
-        !cpp.break_statement
+        !cpp.return_stmt[:]
+        !cpp.goto_stmt[:]
+        !cpp.break_stmt
+        or:
+          cpp.if_stmt:
+            cpp.compound_stmt:
+              !cpp.break_stmt
+            cpp.compound_stmt
