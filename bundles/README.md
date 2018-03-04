@@ -6,5 +6,5 @@ Bundles using a single language are in that language's directory, cross domain b
 
 ## Writing a bundle
 
-Bundles have a README to explain their purpose with an ideas section for tenets yet to be implemented. Each tenet should have an associated src file (or whatever domain is queried) and an expected output.
+Bundles have a README to explain their purpose with an ideas section for tenets yet to be implemented. Each tenet should have an associated src file (or other example of queried domain) and an expected output at `./testdata/<tenet_name>.<language_extension>` and `./testdata/<tenet_name>.json` respectively.
 <!-- TODO: build simple  `lingo test-tenet <dir>` command -->
