@@ -1,1 +1,0 @@
- The tenets in .lingo will apply to this dir and all sub dirs. See README.md in sub dirs for an explanation of the Tenets there.

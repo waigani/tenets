@@ -1,9 +1,0 @@
-lexicons:
-- codelingo/go
-
-tenets:
-- name: Client Unmarshalling
-  doc: There should be no need to use the client struct to unmarshall on the server.
-  comment: Please unmarshal to a clientStruct
-  match:
-    <func

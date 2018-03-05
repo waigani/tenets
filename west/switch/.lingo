@@ -1,18 +1,21 @@
-lexicons:
-- codelingo/cpp
 tenets:
-- name: fall-through-case
-  doc: Finds non-empty cases that fall through.
-  comment: Non-empty cases must end with a break, return, or goto.
-  match:
-    cpp.switch_stmt[:]:
-      <cpp.case_stmt[0:2]:
-        cpp.element
-        !cpp.return_stmt[:]
-        !cpp.goto_stmt[:]
-        !cpp.break_stmt
-        or:
-          cpp.if_stmt:
-            cpp.compound_stmt:
-              !cpp.break_stmt
-            cpp.compound_stmt
+  - bots:
+      codelingo/clair:
+        name: fall-through-case
+        doc: Finds non-empty cases that fall through.
+        comment: Non-empty cases must end with a break, return, or goto.
+    query: |
+      import codelingo/ast/cpp/0.0.0
+
+      cpp.switch_stmt({depth: [0:0]}):
+        @ clair.comment
+        cpp.case_stmt{depth: [0:2]}:
+          cpp.element
+          !cpp.return_stmt({depth: [0:0]})
+          !cpp.goto_stmt({depth: [0:0]})
+          !cpp.break_stmt
+          or:
+            cpp.if_stmt:
+              cpp.compound_stmt:
+                !cpp.break_stmt
+              cpp.compound_stmt

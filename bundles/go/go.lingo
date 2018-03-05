@@ -1,7 +1,7 @@
 tenets:
   - bots:
       codelingo/clair:
-        doc: Separates client and server versions of a request by ensuring the server never unmarshalls to the client's version. Use the names of your own structs to guarantee a match and reduce the regex calculation hit.
+        doc: Separates client and server versions of a request by ensuring the server never unmarshalls to the client's version. Use the names of your own structs to guarantee a match.
         comments: Request should not be marshalled to a client type in the server.
         name: Mixed_Marshalling
     query: |

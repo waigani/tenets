@@ -1,80 +1,96 @@
-lexicons:
-- codelingo/cpp
 tenets:
-- name: freed-new-object
-  doc: Finds objects that were created with new and freed.
-  comment: This was created with new, and should be deleted not freed.
-  match: 
-    cpp.block:
-      cpp.assignment_statement[:]:
-        cpp.lhs:
+  - bots:
+      codelingo/clair:
+        name: freed-new-object
+        doc: Finds objects that were created with new and freed.
+        comment: This was created with new, and should be deleted not freed.
+    query: |
+      import codelingo/ast/cpp/0.0.0
+
+      cpp.block:
+        cpp.assignment_statement({depth: any}):
+          cpp.lhs:
+            cpp.variable:
+              cpp.identifier_name:
+                identifier_token: $varName
+          cpp.rhs:
+            cpp.new_keyword
+        @ clair.comment
+        cpp.free_statement:
           cpp.variable:
             cpp.identifier_name:
               identifier_token: $varName
-        cpp.rhs:
-          cpp.new_keyword
-      <cpp.free_statement:
+
+  - bots:
+      codelingo/clair:
+        name: deleted-malloced-objects
+        doc: Finds objects that were obtained with malloc and deleted.
+        comment: This was obtained with malloc, and should be freed not deleted.
+    query: |
+      import codelingo/ast/cpp/0.0.0
+
+      cpp.block:
+        cpp.assignment_statement({depth: any}):
+          cpp.lhs:
+            cpp.variable:
+              cpp.identifier_name:
+                identifier_token: $varName
+          cpp.rhs:
+            cpp.function_call:
+              cpp.identifier_name:
+                identifier_token: "malloc"
+        cpp.delete_statement:
+          @ clair.comment
+          cpp.variable:
+            cpp.identifier_name:
+              identifier_token: $varName
+
+  - bots:
+      codelingo/clair:
+        name: used-after-deletion
+        doc: Finds objects used after deletion.
+        comment: This object has already been deleted.
+    query: |
+      import codelingo/ast/cpp/0.0.0
+
+      cpp.delete_statement:
+        cpp.variable:
+          cpp.identifier_name:
+            identifier_token: $varName
+      or:
+        cpp.element:
+          cpp.variable({depth: any}):
+              cpp.identifier_name:
+                identifier_token: $varName
         cpp.variable:
           cpp.identifier_name:
             identifier_token: $varName
 
-- name: deleted-malloced-objects
-  doc: Finds objects that were obtained with malloc and deleted.
-  comment: This was obtained with malloc, and should be freed not deleted.
-  match: 
-    cpp.block:
-      cpp.assignment_statement[:]:
-        cpp.lhs:
-          cpp.variable:
-            cpp.identifier_name:
-              identifier_token: $varName
-        cpp.rhs:
+  - bots:
+      codelingo/clair:
+        name: undeleted-returned-object
+        doc: Finds objects new that are not deleted.
+        comment: This object is neither deleted nor passed to a method that could delete it.
+    query: |
+      import codelingo/ast/cpp/0.0.0
+
+      cpp.method_declaration({depth: any}):
+        cpp.assignment_statement({depth: any}):
+          cpp.lhs:
+            cpp.variable:
+              type: /ref.*/
+              cpp.identifier_name:
+                identifier_token: $varName
+        !or:
+          cpp.delete_statement({depth: any}):
+            cpp.variable:
+              cpp.identifier_name:
+                identifier_token: $varName
+          cpp.method_call:
+            cpp.variable:
+              cpp.identifier_name:
+                identifier_token: $varName
           cpp.function_call:
-            cpp.identifier_name:
-              identifier_token: "malloc"
-      cpp.delete_statement:
-        <cpp.variable:
-          cpp.identifier_name:
-            identifier_token: $varName
-
-- name: used-after-deletion
-  doc: Finds objects used after deletion.
-  comment: This object has already been deleted.
-  match:
-    cpp.delete_statement:
-      cpp.variable:
-        cpp.identifier_name:
-          identifier_token: $varName
-    or:
-      cpp.element:
-        cpp.variable[:]:
-            cpp.identifier_name:
-              identifier_token: $varName
-      cpp.variable:
-        cpp.identifier_name:
-          identifier_token: $varName
-
-- name: undeleted-returned-object
-  doc: Finds objects new that are not deleted.
-  comment: This object is neither deleted nor passed to a method that could delete it.
-  match:
-    cpp.method_declaration[:]:
-      cpp.assignment_statement[:]:
-        cpp.lhs:
-          cpp.variable:
-            type: /ref.*/
-            cpp.identifier_name:
-              identifier_token: $varName
-      !or:
-        cpp.delete_statement[:]:
-          cpp.variable:
-            cpp.identifier_name:
-              identifier_token: $varName
-        cpp.method_call:
-          cpp.variable:
-            cpp.identifier_name:
-              identifier_token: $varName
-        cpp.function_call:
-          cpp.variable:
-            cpp.identifier_name:
-              identifier_token: $varName
+            cpp.variable:
+              cpp.identifier_name:
+                identifier_token: $varName
