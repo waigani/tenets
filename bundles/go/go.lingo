@@ -19,7 +19,7 @@ tenets:
                     go.selector_expr:
                       @ clair.comment
                       go.ident:
-                        name: /.*Server.*/
+                        name: "Server"
           @ clair.comment
           go.assign_stmt({depth: any}):
             go.call_expr:
