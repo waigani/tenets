@@ -1,0 +1,31 @@
+tenets:
+  - bots:
+      codelingo/clair:
+        doc: Separates client and server versions of a request by ensuring the server never unmarshalls to the client's version. Use the names of your own structs to guarantee a match.
+        comments: Request should not be marshalled to a client type in the server.
+        name: Mixed_Marshalling
+    query: |
+      import codelingo/ast/go/0.0.0
+
+      go.dir: # TODO: add dir and file context facts during testing
+        name: "testdata.go"
+        go.file:
+          name: "mixed_marshalling.go"
+          go.func_decl({depth: 1}):
+            go.func_type:
+              go.field_list:
+                go.field:
+                  go.star_expr:
+                    go.selector_expr:
+                      @ clair.comment
+                      go.ident:
+                        name: "Server"
+          @ clair.comment
+          go.assign_stmt({depth: any}):
+            go.call_expr:
+              go.selector_expr:
+                expr: "json"
+                name: "Marshal"
+              go.args:
+                !go.ident:
+                  name: "client"

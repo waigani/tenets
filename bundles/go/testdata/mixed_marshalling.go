@@ -1,14 +1,17 @@
-package server
+package testdata
 
 import (
 	"fmt"
 
 	"encoding/json"
 
-	"github.com/codelingo/tenets/example/common"
-
 	"github.com/juju/errors"
 )
+
+// Pretend this is defined in the client
+type ClientData struct {
+	A string
+}
 
 func SendData() error {
 	myServer := &common.Server{}

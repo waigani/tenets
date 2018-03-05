@@ -1,11 +1,12 @@
-lexicons:
-  - codelingo/common as c
-
 tenets:
-  - name: long-func-name
-    comment: "func name is too long"
-    match:
-      <c.func:
+  - bots:
+      codelingo/clair:
+        name: long-func-name
+        comment: "func name is too long"
+        match:
+    query: |
+      @ clair.comment
+      c.func:
         c.name:
           c.string: "NewReallyLongNamedFunc"
           c.charlen: > 10
