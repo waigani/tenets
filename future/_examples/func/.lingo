@@ -5,6 +5,6 @@ tenets:
         comments: Func name should not be foo
         name: foo-func
     query: |
-    @ clair.comment
-    func:
-        name: "foo"
+      @ clair.comment
+      func:
+          name: "foo"
