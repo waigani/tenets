@@ -5,7 +5,7 @@ tenets:
           Find uses of goto.
 
           goto statments have a niche use and can obscure the flow of a program.
-        comments: This is a goto statement.
+        comments: goto statments have a niche use and can obscure the flow of a program.
         name: goto-statement
     query: |
       import (
