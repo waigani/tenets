@@ -1,0 +1,23 @@
+tenets:
+  - bots:
+      codelingo/clair:
+        name: find-funcs
+        doc: Example tenet that finds all functions.
+        comments: This is a function, but you probably already knew that.
+    query: |
+      import codelingo/ast/go/0.0.0
+  
+      @ clair.comment
+      go.call_expr({depth: any}):
+        go.selector_expr:
+          go.ident:
+            name: "errors"
+          go.ident:
+            name: "New"
+        go.args:
+          go.call_expr:
+            go.selector_expr:
+              go.ident:
+                name: "fmt"
+              go.ident:
+                name: "Sprintf"
