@@ -8,13 +8,21 @@ import (
 	"github.com/juju/errors"
 )
 
-// Pretend this is defined in the client
+// Suppose this were defined in the client
 type ClientData struct {
 	A string
 }
 
+type ClientData struct {
+	A string
+}
+
+type Server struct {
+	A string
+}
+
 func SendData() error {
-	myServer := &common.Server{}
+	myServer := &Server{}
 
 	data, err := MakeJSONRequest(myServer)
 	if err != nil {
@@ -25,8 +33,21 @@ func SendData() error {
 	return nil
 }
 
-func MakeJSONRequest(s *common.Server) ([]byte, error) {
-	cliStr := common.ClientData{
+func MakeValidJSONRequest(s *Server) ([]byte, error) {
+	cliStr := ServerData{
+		A: "a fixed value",
+	}
+
+	data, err := json.Marshal(cliStr)
+	if err != nil {
+		return nil, errors.Trace(err)
+	}
+
+	return data, nil
+}
+
+func MakeInvalidJSONRequest(s *Server) ([]byte, error) {
+	cliStr := ClientData{
 		A: "a fixed value",
 	}
 
