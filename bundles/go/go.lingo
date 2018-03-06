@@ -1,31 +1,31 @@
 tenets:
   - bots:
       codelingo/clair:
-        doc: Separates client and server versions of a request by ensuring the server never unmarshalls to the client's version. Use the names of your own structs to guarantee a match.
+        doc: Separates client and server versions of a request by ensuring the server never unmarshalls to the client's version. Use the types of your own structs to create a project specific review.
         comments: Request should not be marshalled to a client type in the server.
-        name: Mixed_Marshalling
+        name: mixed_marshalling
     query: |
       import codelingo/ast/go/0.0.0
 
-      go.dir: # TODO: add dir and file context facts during testing
-        name: "testdata.go"
-        go.file:
-          name: "mixed_marshalling.go"
-          go.func_decl({depth: 1}):
-            go.func_type:
-              go.field_list:
-                go.field:
-                  go.star_expr:
-                    go.selector_expr:
-                      @ clair.comment
-                      go.ident:
-                        name: "Server"
-          @ clair.comment
+      go.func_decl({depth: any}):
+        go.func_type:
+          go.field_list:
+            go.field:
+              go.star_expr:
+                @ clair.comment
+                go.ident:
+                  # Replace with your own client/server types (prepended with /resource/).
+                  type: "/resource/mixed_marshalling.go.Server"
+          go.field_list # Refers to parameters, making the first field list the reciever
+        go.block_stmt:
           go.assign_stmt({depth: any}):
-            go.call_expr:
-              go.selector_expr:
-                expr: "json"
-                name: "Marshal"
-              go.args:
-                !go.ident:
-                  name: "client"
+            go.rhs:
+              go.call_expr:
+                go.selector_expr:
+                  go.ident:
+                    name: "json"
+                  go.ident:
+                    name: "Marshal"
+                go.args:
+                  go.ident:
+                    type: "/resource/mixed_marshalling.go.ClientData"
