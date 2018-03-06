@@ -1,0 +1,17 @@
+tenets:
+  - bots:
+      codelingo/clair:
+        name: bool-param
+        doc: Example tenet that finds all functions.
+        comments: This boolean parameter is likely a code smell.
+    query: |
+      import codelingo/ast/go/0.0.0
+
+      @ clair.comment
+      go.func_decl({depth: any}):
+        go.func_type:
+          go.field_list:
+            go.field:
+              go.names:
+                go.ident:
+                  type: "bool"
