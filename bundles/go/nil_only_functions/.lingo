@@ -17,8 +17,8 @@ tenets:
 
         # only include functions with at least one return value
         go.func_type:
-          go.field_list
-          go.field_list
+          go.field_list  # function has 0 or more parameters
+          go.field_list  # function has 1 or more return value
 
         # include functions with any "return nil"
         go.return_stmt({depth: any}):
