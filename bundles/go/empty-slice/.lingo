@@ -1,0 +1,16 @@
+tenets:
+  - bots:
+      codelingo/clair:
+        name: Empty-Slice
+        doc: Ensures that empty slices are declared idiomatically.
+        comments: You should declare this using "var" not ":=" see t https://github.com/golang/go/wiki/CodeReviewComments#declaring-empty-slices
+    query: |
+      import codelingo/ast/go/0.0.0
+  
+      @ clair.comment
+      go.assign_stmt({depth: any}):
+        token: ":="
+        go.rhs:
+          go.composite_lit:
+            go.elts:
+              !go.element
