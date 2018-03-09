@@ -1,0 +1,17 @@
+tenets:
+  - bots:
+      codelingo/clair:
+        doc: |
+          Find comments containing TODO.
+
+          TODOs should be tracked in a place outside of the code to ensure they aren't forgotten.
+        comments: Make sure you add this TODO as an issue, milestone, or in your project management tool; eg. Trello.
+        name: find-todo-comments
+    query: |
+      import (
+        codelingo/ast/go/0.0.0
+      )
+
+      @ clair.comment
+      go.comment({depth: any}):
+        name: /(?i)(^|\s)TODO.*/
