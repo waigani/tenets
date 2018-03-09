@@ -14,4 +14,4 @@ tenets:
 
       @ clair.comment
       go.comment({depth: any}):
-        name: /.*TODO.*/
+        name: /(?i)(^|\s)TODO.*/

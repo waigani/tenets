@@ -2,7 +2,15 @@ package main
 
 import "log"
 
-// actual TODO: wait until comment parser is fixed: https://github.com/codelingo/lexicon/issues/205
+// todo: all lower case
+
+// tOdO: mixed case
+
+// TODO: upper case
+
+// todo no colon
+
+// gasdTodo--
 
 // main is the entry point to this example
 func main() {
