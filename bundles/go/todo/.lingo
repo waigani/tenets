@@ -13,4 +13,5 @@ tenets:
       )
 
       @ clair.comment
-      go.comment({depth: any})
+      go.comment({depth: any}):
+        name: /.*TODO.*/
