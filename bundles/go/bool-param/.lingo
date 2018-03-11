@@ -2,7 +2,7 @@ tenets:
   - bots:
       codelingo/clair:
         name: bool-param
-        doc: -
+        doc: ""
         comments: Boolean arguments can indicate low cohesion. Consider using a separate function for each case and helper functions for repeated code. This will make each function clearer and more modular, leading to easier maintainability.
     query: |
       import codelingo/ast/go/0.0.0
