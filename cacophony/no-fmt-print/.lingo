@@ -17,13 +17,21 @@ tenets:
       )
 
       go.file({depth: any}):
-        go.import_spec({depth: any}):
-          go.basic_lit:
-            value: "fmt"
+        any_of:
+          go.import_spec({depth: any}): # aliased import
+            go.ident:
+              name: $alias
+            go.basic_lit:
+              value: "fmt"
+          go.import_spec({depth: any}): # unaliased import
+            !go.ident
+            go.basic_lit:
+              value: "fmt"
+              value: $alias
         @ clair.comment
         go.call_expr({depth: any}):
           go.selector_expr:
             go.ident:
-              name: "fmt"
+              name: $alias
             go.ident:
               name: /^Print.*$/
