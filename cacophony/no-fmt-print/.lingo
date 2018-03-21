@@ -1,16 +1,16 @@
 tenets:
-  - bots:
-      codelingo/clair:
-        doc: |
-          Find uses fmt.Print* (eg. Print, Println, Printf).
+  - name: no-fmt-print*
+    doc: |
+      Find uses fmt.Print* (eg. Print, Println, Printf).
 
-          The log package is better suited for logging than the fmt package for a number of reasons:
-          1. log can be configured to use different writers.
-          2. log messages can include additional info; eg. timestamps, source code location.
-          3. log messages will never be interleaved.
+      The log package is better suited for logging than the fmt package for a number of reasons:
+      1. log can be configured to use different writers.
+      2. log messages can include additional info; eg. timestamps, source code location.
+      3. log messages will never be interleaved.
+    bots:
+      codelingo/clair:
         comments: |
           Use log.Print* instead. The log package is better suited for logging.
-        name: no-fmt-print*
     query: |
       import (
         codelingo/ast/go/0.0.0

@@ -1,8 +1,8 @@
 tenets:
-  - bots:
+  - name: fall-through-case
+    doc: Finds non-empty cases that fall through.
+    bots:
       codelingo/clair:
-        name: fall-through-case
-        doc: Finds non-empty cases that fall through.
         comment: Non-empty cases must end with a break, return, or goto.
     query: |
       import codelingo/ast/cpp/0.0.0

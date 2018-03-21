@@ -1,7 +1,8 @@
 tenets:
-  - bots:
+  - name: long-func-name
+    doc: Find long function names
+    bots:
       codelingo/clair:
-        name: long-func-name
         comment: "func name is too long"
         match:
     query: |

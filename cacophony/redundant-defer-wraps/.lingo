@@ -1,12 +1,12 @@
 tenets:
-  - bots:
-      codelingo/clair:
-        doc: |
-          Finds redundant defer wrapping that could be simplified into a single line.
+    name: redundant-defer-wraps
+    doc: |
+      Finds redundant defer wrapping that could be simplified into a single line.
 
-          A single line defer is cleaner and easier to read than one wrapped in a function.
+      A single line defer is cleaner and easier to read than one wrapped in a function.
+    bots:
+      codelingo/clair:
         comments: Redundant defer wrapping. This can be a single line defer instead, eg. defer log.Println("done").
-        name: redundant-defer-wraps
     query: |
       import (
         codelingo/ast/go/0.0.0

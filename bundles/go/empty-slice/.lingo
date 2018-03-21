@@ -1,8 +1,9 @@
 tenets:
-  - bots:
+  - name: empty-slice
+    doc: |
+      Find empty slice assignments.
+    bots:
       codelingo/clair:
-        name: Empty-Slice
-        doc: Ensures that empty slices are declared idiomatically.
         comments: You should declare this using "var" not ":=" see t https://github.com/golang/go/wiki/CodeReviewComments#declaring-empty-slices
     query: |
       import codelingo/ast/go/0.0.0

@@ -1,12 +1,10 @@
 tenets:
-  - bots:
+  - name: nil-only-functions
+    doc: |
+      Find functions that only return nil.
+    bots:
       codelingo/clair:
-        doc: |
-          Find functions that only return nil.
-
-          Functions that don't return a non-nil value can be refactored without a reutrn type.
         comments: Functions that don't return a non-nil value can be refactored without a reutrn type.
-        name: nil-only-functions
     query: |
       import (
         codelingo/ast/go/0.0.0

@@ -1,8 +1,9 @@
 tenets:
-  - bots:
+  - name: sprintf-error
+    doc: |
+      Find instances of 'errors.New(fmt.Sprintf(...))'.
+    bots:
       codelingo/clair:
-        name: sprintf-error
-        doc: It is cleaner to use errors.Errorf()
         comments: Should replace errors.New(fmt.Sprintf(...)) with errors.Errorf(...).
     query: |
       import codelingo/ast/go/0.0.0
