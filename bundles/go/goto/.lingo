@@ -1,12 +1,10 @@
 tenets:
-  - bots:
+  - name: goto-statement
+    doc: |
+      Find uses of goto.
+    bots:
       codelingo/clair:
-        doc: |
-          Find uses of goto.
-
-          goto statments have a niche use and can obscure the flow of a program.
         comments: goto statments have a niche use and can obscure the flow of a program.
-        name: goto-statement
     query: |
       import (
         codelingo/ast/go/0.0.0

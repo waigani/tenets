@@ -1,13 +1,13 @@
 tenets:
+  - name: debug-prints
+    doc: |
+      Find debug print calls.
+
+      Debug print calls shouldn't be left in production code.
+      They make the program unnecessarily verbose and can output sensitive information.
   - bots:
       codelingo/clair:
-        doc: |
-          Find debug print calls.
-
-          Debug print calls shouldn't be left in production code.
-          They make the program unnecessarily verbose and can output sensitive information.
         comments: Remove debug prints as they make the program unnecessarily verbose and can output sensitive information.
-        name: find-debug-prints
     query: |
       import (
         codelingo/ast/python36/0.0.0

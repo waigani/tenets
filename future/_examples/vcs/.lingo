@@ -1,9 +1,9 @@
 # find func who's got extra params from last pr
 tenets:
-  - bots:
+  - name: growing-args
+    doc: "funcs should not take more than three args"
+    bots:
       codelingo/clair:
-        name: growing-args
-        doc: "funcs should not take more than three args"
         comment: "The arg list to this func is getting quite long. It should instead take a dataset."
     query: |
       @ clair.comment

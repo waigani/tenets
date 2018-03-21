@@ -1,9 +1,9 @@
 # MachineAgent has too many fields
 tenets:
-  - bots:
+  - name: "machineagent-field-count"
+    doc: "too many fields"
+    bots:
       codelingo/clair:
-        name: "machineagent-field-count"
-        doc: "too many fields"
         comment: "MachineAgent should have no more than 8 fields"
     query: |
       @ clair.comment

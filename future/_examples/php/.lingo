@@ -1,46 +1,46 @@
 tenets:
-  - bots:
+  - name: disallow-funcs-that-use-unsafe-mysql-functions
+    doc: "Old unsafe mysql functions should not be used due to SQL injection"
+    bots:
       codelingo/clair:
-        name: disallow-funcs-that-use-unsafe-mysql-functions
-        doc: "Old unsafe mysql functions should not be used due to SQL injection"
         comment: "This functions uses unsafe mysql calls"
     query: |
       @ clair.comment
       func:
         call:
           name: /^mysql_.*/
-  - bots:
+  - name: disallow-unsafe-mysql-functions
+    doc: "Old unsafe mysql functions should not be used due to SQL injection"
+    bots:
       codelingo/clair:
-        name: disallow-unsafe-mysql-functions
-        doc: "Old unsafe mysql functions should not be used due to SQL injection"
         comment: "Please use mysqli / prepared statements only"
     query:
       call:
         @ clair.comment
         name: /^mysql_.*/
-  - bots:
+  - name: arg-example
+    doc: "Find and argument by name"
+    bots:
       codelingo/clair:
-        name: arg-example
-        doc: "Find and argument by name"
         comment: "This func has an arg named 'a'"
     query:
       @ clair.comment
       arg:
         variable:
           name: "a"
-  - bots:
+  - name: find-all-literal-strings
+    doc: "Example of finding all literal strings"
+    bots:
       codelingo/clair:
-        name: find-all-literal-strings
-        doc: "Example of finding all literal strings"
         comment: "This is a literal string"
     query:
       @ clair.comment
       literal:
         type: "string"
-  - bots:
+  - name: string-lit-regex
+    doc: "Example of finding a literal string"
+    bots:
       codelingo/clair:
-        name: string-lit-regex
-        doc: "Example of finding a literal string"
         comment: "This is a literal string ending in 'i'"
     query:
       @ clair.comment

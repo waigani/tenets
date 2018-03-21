@@ -1,8 +1,8 @@
 tenets:
-  - bots:
+  - name: shadowed-parameter
+    doc: Finds parameters that are updated in the method body.
+    bots:
       codelingo/clair:
-        name: shadowed-parameter
-        doc: Finds parameters that are updated in the method body.
         comment: This assignment may corrupt the parameter. Consider using another variable instead.
     query: |
       import codelingo/ast/cpp/0.0.0
@@ -16,10 +16,10 @@ tenets:
             cpp.decl_ref_expr:
               name: $paramName
 
-  - bots:
+  - name: shadowed-declaration
+    doc: Finds declarations that are updated in an inner scope.
+    bots:
       codelingo/clair:
-        name: shadowed-declaration
-        doc: Finds declarations that are updated in an inner scope.
         comment: This assignment may corrupt the variable. Consider creating another variable instead.
     query: |
       import codelingo/ast/cpp/0.0.0

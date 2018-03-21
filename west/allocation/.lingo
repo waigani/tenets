@@ -1,8 +1,8 @@
 tenets:
-  - bots:
+  - name: freed-new-object
+    doc: Finds objects that were created with new and freed.
+    bots:
       codelingo/clair:
-        name: freed-new-object
-        doc: Finds objects that were created with new and freed.
         comment: This was created with new, and should be deleted not freed.
     query: |
       import codelingo/ast/cpp/0.0.0
@@ -21,10 +21,10 @@ tenets:
             cpp.identifier_name:
               identifier_token: $varName
 
-  - bots:
+  - name: deleted-malloced-objects
+    doc: Finds objects that were obtained with malloc and deleted.
+    bots:
       codelingo/clair:
-        name: deleted-malloced-objects
-        doc: Finds objects that were obtained with malloc and deleted.
         comment: This was obtained with malloc, and should be freed not deleted.
     query: |
       import codelingo/ast/cpp/0.0.0
@@ -45,10 +45,10 @@ tenets:
             cpp.identifier_name:
               identifier_token: $varName
 
-  - bots:
+  - name: used-after-deletion
+    doc: Finds objects used after deletion.
+    bots:
       codelingo/clair:
-        name: used-after-deletion
-        doc: Finds objects used after deletion.
         comment: This object has already been deleted.
     query: |
       import codelingo/ast/cpp/0.0.0
@@ -66,10 +66,10 @@ tenets:
           cpp.identifier_name:
             identifier_token: $varName
 
-  - bots:
+  - name: undeleted-returned-object
+    doc: Finds objects new that are not deleted.
+    bots:
       codelingo/clair:
-        name: undeleted-returned-object
-        doc: Finds objects new that are not deleted.
         comment: This object is neither deleted nor passed to a method that could delete it.
     query: |
       import codelingo/ast/cpp/0.0.0
