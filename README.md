@@ -2,10 +2,13 @@
 
 This repository hosts published Tenets that can be imported as Tenet bundles or individually in .lingo files. The file structure follows the following format:
 
+```
 <owner>/
   <bundle>/
     <tenet>/
       .lingo
+      [example files...]
+```
 
 The owner corresponds to a CodeLingo user account name (you can sign up at codelingo.io). To land code you must have permissions to push to the owner directory.
 
