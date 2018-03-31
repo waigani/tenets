@@ -1,0 +1,18 @@
+tenets:
+  - name: go-lint-rules
+    doc: |
+      Find all go linter rules.
+    bots:
+      codelingo/clair:
+        comments: |
+          {{text}}
+    query: |
+      import (
+        codelingo/ast/golint/0.0.0
+      )
+
+      @ clair.comment
+      golint.lint_rule({depth: any}):
+        @ clair.vars.text
+        text
+
